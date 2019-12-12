@@ -3,6 +3,8 @@
   "version": "5.44.3",
   "description": "WickrIO Compliance Bot",
   "main": "compliance_bot.js",
+  "author": "Paul Cushman",
+  "license": "ISC",
   "dependencies": {
     "pm2": "^3.5.1",
     "prompt": "^1.0.0",
@@ -25,6 +27,5 @@
     "secure",
     "messaging",
     "api"
-  ],
-  "database": false
+  ]
 }
