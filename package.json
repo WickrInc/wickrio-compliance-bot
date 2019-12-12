@@ -1,15 +1,30 @@
 {
   "name": "wickrio-compliance-bot",
   "version": "5.44.3",
-  "description": "Wickr sample JavaScript Compliance Bot",
+  "description": "WickrIO Compliance Bot",
   "main": "compliance_bot.js",
   "dependencies": {
-    "pm2": "^3.2.8",
+    "pm2": "^3.5.1",
     "prompt": "^1.0.0",
     "wickrio_addon": "^5.44.2"
   },
   "scripts": {
     "start": "pm2 start compliance_bot.js",
     "stop": "pm2 delete compliance_bot.js"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/WickrInc/wickrio-compliance-bot"
+  },
+  "keywords": [
+    "wickr",
+    "wickrio",
+    "wickrbot",
+    "bot",
+    "bots",
+    "secure",
+    "messaging",
+    "api"
+  ],
+  "database": false
 }
