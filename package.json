@@ -1,5 +1,5 @@
 {
-  "name": "compliance_bot",
+  "name": "wickrio-compliance-bot",
   "version": "5.44.3",
   "description": "Wickr sample JavaScript Compliance Bot",
   "main": "compliance_bot.js",
