@@ -1,6 +1,6 @@
 {
   "name": "wickrio-compliance-bot",
-  "version": "5.44.5",
+  "version": "5.44.6",
   "description": "WickrIO Compliance Bot",
   "main": "compliance_bot.js",
   "author": "Paul Cushman",
@@ -27,5 +27,11 @@
     "secure",
     "messaging",
     "api"
-  ]
+  ],
+  "com_wickr" : {
+    "supports" : [
+      "cloud",
+      "enterprise"
+    ]
+  }
 }
