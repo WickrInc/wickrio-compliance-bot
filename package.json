@@ -1,6 +1,6 @@
 {
   "name": "wickrio-compliance-bot",
-  "version": "5.38.19",
+  "version": "5.38.20",
   "description": "WickrIO Compliance Bot",
   "main": "compliance_bot.js",
   "author": "Paul Cushman",
@@ -11,8 +11,8 @@
     "wickrio_addon": "5.38.x"
   },
   "scripts": {
-    "start": "pm2 start compliance_bot.js",
-    "stop": "pm2 delete compliance_bot.js"
+    "start": "pm2 start processes.json --update-env",
+    "stop": "pm2 delete processes.json"
   },
   "repository": {
     "type": "git",
