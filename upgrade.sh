@@ -36,14 +36,7 @@ cd $OLD_BOT_LOCATION
 # Copy the json data files to the new software location
 #
 set +e
-cp -f client_bot_username.txt processes.json $NEW_BOT_LOCATION
-set -e
-
-#
-# Copy the attachment files to the new software location
-#
-set +e
-cp -rf attachments $NEW_BOT_LOCATION
+cp -f client_bot_username.txt processes.json receivedMessages.log $NEW_BOT_LOCATION
 set -e
 
 #
