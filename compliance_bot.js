@@ -1,86 +1,84 @@
-var addon = require('wickrio_addon');
 var fs = require('fs');
+const WickrIOAPI = require('wickrio_addon');
+const WickrIOBotAPI = require('wickrio-bot-api');
+const WickrUser = WickrIOBotAPI.WickrUser;
+const bot = new WickrIOBotAPI.WickrIOBot();
 
 process.title = "complianceBot";
-module.exports = addon;
+module.exports = WickrIOAPI;
 process.stdin.resume(); //so the program will not close instantly
 
-function exitHandler(options, err) {
-  if (err) {
-    console.log(err.stack);
-    addon.cmdStopAsyncRecvMessages();
-    console.log(addon.closeClient());
-    process.exit();
-  }
-  if (options.exit) {
-    addon.cmdStopAsyncRecvMessages();
-    console.log(addon.closeClient());
-    process.exit();
-  } else if (options.pid) {
-    addon.cmdStopAsyncRecvMessages();
-    console.log(addon.closeClient());
-    process.kill(process.pid);
+async function exitHandler(options, err) {
+  try {
+    var closed = await bot.close();
+    if (err || options.exit) {
+      console.log("Exit reason:", err);
+      process.exit();
+    } else if (options.pid) {
+      process.kill(process.pid);
+    }
+  } catch (err) {
+    console.log(err);
   }
 }
 
 //catches ctrl+c and stop.sh events
-process.on('SIGINT', exitHandler.bind(null, {
-  exit: true
-}));
+process.on('SIGINT', exitHandler.bind(null, { exit: true }));
 
 // catches "kill pid" (for example: nodemon restart)
-process.on('SIGUSR1', exitHandler.bind(null, {
-  pid: true
-}));
-process.on('SIGUSR2', exitHandler.bind(null, {
-  pid: true
-}));
+process.on('SIGUSR1', exitHandler.bind(null, { pid: true }));
+process.on('SIGUSR2', exitHandler.bind(null, { pid: true }));
 
 //catches uncaught exceptions
-process.on('uncaughtException', exitHandler.bind(null, {
-  exit: true
-}));
+process.on('uncaughtException', exitHandler.bind(null, { exit: true }));
 
-return new Promise(async (resolve, reject) => {
+async function main() {
   try {
+    var client;
+
     if (process.argv[2] === undefined) {
-      var client = await fs.readFileSync('client_bot_username.txt', 'utf-8');
+      client = await fs.readFileSync('client_bot_username.txt', 'utf-8');
       client = client.trim();
-      var response = await addon.clientInit(client);
-      resolve(response);
     } else {
-      var response = await addon.clientInit(process.argv[2]);
-      resolve(response);
+      client = process.argv[2];
+    }
+
+    var status = await bot.start(client)
+    if (!status) {
+      exitHandler(null, {
+        exit: true,
+        reason: 'Client not able to start'
+      });
     }
   } catch (err) {
     console.log(err);
     process.exit();
   }
-}).then(result => {
-  console.log(result);
+
   try {
     var type='complianceruntime';
     var value='true';
-    addon.cmdSetControl(type, value);
+    WickrIOAPI.cmdSetControl(type, value);
   } catch (err) {
     console.log(err);
     process.exit();
   }
 
   try {
-    addon.cmdStartAsyncRecvMessages(listen);
+    await bot.startListening(listen); //Passes a callback function that will receive incoming messages into the bot client
   } catch (err) {
     console.log(err);
     process.exit();
   }
+}
 
-  function listen(message) {
-    try {
-      fs.appendFileSync('receivedMessages.log', message + '\n', 'utf8');
-    } catch (err) {
-      return console.log(err);
-    }
+function listen(message) {
+  try {
+    fs.appendFileSync('receivedMessages.log', message + '\n', 'utf8');
+  } catch (err) {
+    return console.log(err);
   }
-}).catch(error => {
-  console.log('Error: ', error);
-});
+}
+
+main();
+
