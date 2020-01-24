@@ -1,13 +1,15 @@
 {
   "name": "wickrio-compliance-bot",
-  "version": "5.44.7",
+  "version": "5.44.8",
   "description": "WickrIO Compliance Bot",
   "main": "compliance_bot.js",
   "author": "Paul Cushman",
   "license": "ISC",
   "dependencies": {
+    "log4js": "^5.2.1",
     "pm2": "^3.5.1",
     "prompt": "^1.0.0",
+    "wickrio-bot-api": "5.44.x",
     "wickrio_addon": "5.44.x"
   },
   "scripts": {
