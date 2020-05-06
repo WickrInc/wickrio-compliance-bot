@@ -1,11 +1,12 @@
-const fs = require('fs');
-const prompt = require('prompt');
-const processes = require('./processes.json');
-const dataStringify = JSON.stringify(processes);
-const dataParsed = JSON.parse(dataStringify);
+const WickrIOBotAPI = require('wickrio-bot-api');
+const util = require('util')
 
-const {exec, execSync, execFileSync} = require('child_process');
-prompt.colors = false;
+
+require("dotenv").config({
+  path: `.env.configure`
+})
+
+var wickrIOConfigure;
 
 process.stdin.resume(); //so the program will not close instantly
 
@@ -40,22 +41,63 @@ process.on('uncaughtException', exitHandler.bind(null, {
 
 main();
 
-async function main() {
-    try {
-      var cp = execSync('cp processes.json processes_backup.json');
 
-      if (process.env.WICKRIO_BOT_NAME !== undefined) {
-        var newName = "WickrIO-Compliance-Bot_" + process.env.WICKRIO_BOT_NAME;
-      } else {
-        var newName = "WickrIO-Compliance-Bot";
-      }
+async function main()
+{
+    const tokenConfig = [
+        {
+            token: 'USE_STREAMING',
+            pattern: 'yes|no',
+            type: 'string',
+            description: 'Do you want to use streaming',
+            message: 'Please enter either yes or no',
+            required: true,
+            default: 'no',
+            list: [
+                {
+                    token: 'STREAM_DESTINATION',
+                    pattern: '',
+                    type: 'file',
+                    description: 'Please enter the location where stream files should be placed',
+                    message: 'Cannot find directory!',
+                    required: true,
+                    default: 'N/A',
+                },
+                {
+                    token: 'STREAM_BASENAME',
+                    pattern: '',
+                    type: 'string',
+                    description: "Please enter the basename for the stream files",
+                    message: 'Cannot leave empty! Please enter a value',
+                    required: true,
+                    default: 'receivedMessages',
+                },
+                {
+                    token: 'STREAM_MAXSIZE',
+                    pattern: '^[0-9]*$',
+                    type: 'number',
+                    description: "Please enter the max size for each stream file",
+                    message: 'Please enter a valid number',
+                    required: false,
+                    default: 'N/A',
+                },
+                {
+                    token: 'STREAM_ATTACHLOC',
+                    pattern: '',
+                    type: 'file',
+                    description: "Please enter the location for attachment files",
+                    message: 'Cannot find directory!',
+                    required: true,
+                    default: 'N/A',
+                }
+            ]
+        }
+    ];
 
-      //var assign = Object.assign(dataParsed.apps[0].name, newName);
-      dataParsed.apps[0].name = newName;
 
-      var ps = fs.writeFileSync('./processes.json', JSON.stringify(dataParsed, null, 2));
-    } catch (err) {
-      console.log(err);
-    }
+    var fullName = process.cwd() + "/processes.json";
+    wickrIOConfigure = new WickrIOBotAPI.WickrIOConfigure(tokenConfig, fullName, false, false);
+
+    await wickrIOConfigure.configureYourBot("WickrIO-Compliance-Bot");
     process.exit();
 }

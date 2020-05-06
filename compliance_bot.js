@@ -36,7 +36,12 @@ async function main() {
   try {
     var client;
 
-    if (process.argv[2] === undefined) {
+    var tokens = JSON.parse(process.env.tokens);
+    
+    if (tokens.WICKRIO_BOT_NAME !== undefined &&
+        tokens.WICKRIO_BOT_NAME.value !== undefined) {
+      client = tokens.WICKRIO_BOT_NAME.value;
+    } else if (process.argv[2] === undefined) {
       client = await fs.readFileSync('client_bot_username.txt', 'utf-8');
       client = client.trim();
     } else {
@@ -62,6 +67,47 @@ async function main() {
   } catch (err) {
     console.log(err);
     process.exit();
+  }
+
+
+  // set the streaming, if is turned on
+  if (tokens.USE_STREAMING !== undefined) {
+    var useStreaming;
+    if (tokens.USE_STREAMING.encrypted) {
+      useStreaming = WickrIOAPI.cmdDecryptString(tokens.USE_STREAMING.value);
+    } else {
+      useStreaming = tokens.USE_STREAMING.value;
+    }
+    if (useStreaming === "yes") {
+      var dest, basename, maxsize, attachloc;
+
+      if (tokens.STREAM_DESTINATION.encrypted) {
+        dest = WickrIOAPI.cmdDecryptString(tokens.STREAM_DESTINATION.value);
+      } else {
+        dest = tokens.STREAM_DESTINATION.value;
+      }
+
+      if (tokens.STREAM_BASENAME.encrypted) {
+        basename = WickrIOAPI.cmdDecryptString(tokens.STREAM_BASENAME.value);
+      } else {
+        basename = tokens.STREAM_BASENAME.value;
+      }
+
+      if (tokens.STREAM_MAXSIZE.encrypted) {
+        maxsize = WickrIOAPI.cmdDecryptString(tokens.STREAM_MAXSIZE.value);
+      } else {
+        maxsize = tokens.STREAM_MAXSIZE.value;
+      }
+
+      if (tokens.STREAM_ATTACHLOC.encrypted) {
+        attachloc = WickrIOAPI.cmdDecryptString(tokens.STREAM_ATTACHLOC.value);
+      } else {
+        attachloc = tokens.STREAM_ATTACHLOC.value;
+      }
+
+      var csm = WickrIOAPI.cmdSetFileStreaming(dest, basename, maxsize, attachloc);
+      console.log(csm);
+    }
   }
 
   try {
