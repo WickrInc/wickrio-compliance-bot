@@ -64,6 +64,8 @@ async function main() {
     var type='complianceruntime';
     var value='true';
     WickrIOAPI.cmdSetControl(type, value);
+    WickrIOAPI.cmdSetControl('contactbackup', 'false');
+    WickrIOAPI.cmdSetControl('convobackup', 'false');
   } catch (err) {
     console.log(err);
     process.exit();
