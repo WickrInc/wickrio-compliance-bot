@@ -71,10 +71,10 @@ async function main() {
     process.exit();
   }
 
+  var useStreaming;
 
   // set the streaming, if is turned on
   if (tokens.USE_STREAMING !== undefined) {
-    var useStreaming;
     if (tokens.USE_STREAMING.encrypted) {
       useStreaming = WickrIOAPI.cmdDecryptString(tokens.USE_STREAMING.value);
     } else {
@@ -110,13 +110,18 @@ async function main() {
       var csm = WickrIOAPI.cmdSetFileStreaming(dest, basename, maxsize, attachloc);
       console.log(csm);
     }
+  } else {
+    useStreaming = "no";
   }
 
-  try {
-    await bot.startListening(listen); //Passes a callback function that will receive incoming messages into the bot client
-  } catch (err) {
-    console.log(err);
-    process.exit();
+  // If not using streaming then start listening for messages
+  if (useStreaming !== "yes") {
+    try {
+      await bot.startListening(listen); //Passes a callback function that will receive incoming messages into the bot client
+    } catch (err) {
+      console.log(err);
+      process.exit();
+    }
   }
 }
 
