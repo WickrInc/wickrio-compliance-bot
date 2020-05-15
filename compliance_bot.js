@@ -83,8 +83,6 @@ async function main() {
 
       rtDurationSeconds = parseInt(rtDuration, 10) * 60;
       rtDuration = rtDurationSeconds.toString();
-console.log('duration.num=' + rtDurationSeconds);
-console.log('duration.string=' + rtDuration);
 
       WickrIOAPI.cmdSetControl('duration', rtDuration);
     } catch (err) {
