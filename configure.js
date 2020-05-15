@@ -94,7 +94,7 @@ async function main()
         },
         {
             token: 'RUNTIME_DURATION',
-            pattern: '^([1-9][0-9]{1,2}|[1-5]000)$',
+            pattern: '^([1-9][0-9]{1,2}|[1-4][0-9]{1,3}|[1-5]000)$',
             type: 'string',
             description: 'Compliance bot should restart periodially to clear data structures.\nFor busy networks this should happen at least daily.\nPlease enter a number of minutes (10 to 5000):',
             message: 'Please enter a valid number',
