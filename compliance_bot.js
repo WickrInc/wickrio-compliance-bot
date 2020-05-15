@@ -71,6 +71,30 @@ async function main() {
     process.exit();
   }
 
+  // Set the duration (seconds)
+  var rtDuration='1440';
+  if (tokens.RUNTIME_DURATION !== undefined) {
+    try {
+      if (tokens.RUNTIME_DURATION.encrypted) {
+        rtDuration = WickrIOAPI.cmdDecryptString(tokens.RUNTIME_DURATION.value);
+      } else {
+        rtDuration = tokens.RUNTIME_DURATION.value;
+      }
+
+      rtDurationSeconds = parseInt(rtDuration, 10) * 60;
+      rtDuration = rtDurationSeconds.toString();
+console.log('duration.num=' + rtDurationSeconds);
+console.log('duration.string=' + rtDuration);
+
+      WickrIOAPI.cmdSetControl('duration', rtDuration);
+    } catch (err) {
+      console.log(err);
+      process.exit();
+    }
+  }
+
+
+
   var useStreaming;
 
   // set the streaming, if is turned on
