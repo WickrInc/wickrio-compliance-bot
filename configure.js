@@ -74,10 +74,10 @@ async function main()
                 },
                 {
                     token: 'STREAM_MAXSIZE',
-                    pattern: '^[0-9]*$',
+                    pattern: '^([1-9][0-9]{3,8}|1000000000)$',
                     type: 'number',
                     description: "Please enter the max size for each stream file",
-                    message: 'Please enter a valid number',
+                    message: 'Please enter a valid number between 1000 and 1000000000',
                     required: false,
                     default: 'N/A',
                 },
@@ -91,6 +91,15 @@ async function main()
                     default: 'N/A',
                 }
             ]
+        },
+        {
+            token: 'RUNTIME_DURATION',
+            pattern: '^([1-9][0-9]{1,2}|[1-5]000)$',
+            type: 'string',
+            description: 'Compliance bot should restart periodially to clear data structures.\nFor busy networks this should happen at least daily.\nPlease enter a number of minutes (10 to 5000):',
+            message: 'Please enter a valid number',
+            required: true,
+            default: '1440'
         }
     ];
 
