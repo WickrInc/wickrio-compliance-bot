@@ -105,10 +105,17 @@ async function main() {
     if (useStreaming === "yes") {
       var dest, basename, maxsize, attachloc;
 
-      if (tokens.STREAM_DESTINATION.encrypted) {
-        dest = WickrIOAPI.cmdDecryptString(tokens.STREAM_DESTINATION.value);
+      if (tokens.STREAM_DESTINATION !== undefined) {
+        if (tokens.STREAM_DESTINATION.encrypted) {
+          dest = WickrIOAPI.cmdDecryptString(tokens.STREAM_DESTINATION.value);
+        } else {
+          dest = tokens.STREAM_DESTINATION.value;
+        }
       } else {
-        dest = tokens.STREAM_DESTINATION.value;
+        dest = __dirname + "messages";
+        if (!fs.existsSync(dest)) {
+          fs.mkdirSync(dest);
+        }
       }
 
       if (tokens.STREAM_BASENAME.encrypted) {
@@ -123,10 +130,16 @@ async function main() {
         maxsize = tokens.STREAM_MAXSIZE.value;
       }
 
-      if (tokens.STREAM_ATTACHLOC.encrypted) {
-        attachloc = WickrIOAPI.cmdDecryptString(tokens.STREAM_ATTACHLOC.value);
+      if (tokens.STREAM_DESTINATION !== undefined) {
+        if (tokens.STREAM_ATTACHLOC.encrypted) {
+          attachloc = WickrIOAPI.cmdDecryptString(tokens.STREAM_ATTACHLOC.value);
+        } else {
+          attachloc = tokens.STREAM_ATTACHLOC.value;
+        }
       } else {
-        attachloc = tokens.STREAM_ATTACHLOC.value;
+        attachloc = __dirname + "attachments";
+        if (!fs.existsSync(attachloc)) {
+          fs.mkdirSync(attachloc);
       }
 
       var csm = WickrIOAPI.cmdSetFileStreaming(dest, basename, maxsize, attachloc);

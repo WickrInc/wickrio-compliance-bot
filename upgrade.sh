@@ -39,6 +39,18 @@ set +e
 cp -f client_bot_username.txt processes.json receivedMessages.log $NEW_BOT_LOCATION
 set -e
 
+# copy the messages if they are local
+if [ -d messages ]
+then
+  cp -r messages $NEW_BOT_LOCATION
+fi
+
+# copy the attachments if they are local
+if [ -d attachments ]
+then
+  cp -r attachments $NEW_BOT_LOCATION
+fi
+
 #
 # Move the OLD installation to a saved directory
 # Remove a previous one if necessary
