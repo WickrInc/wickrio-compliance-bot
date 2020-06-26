@@ -1,3 +1,4 @@
+var fs = require('fs');
 const WickrIOBotAPI = require('wickrio-bot-api');
 const util = require('util')
 
@@ -44,6 +45,18 @@ main();
 
 async function main()
 {
+    // Create the messages directory, needed as the default version
+    mesgdir = __dirname + "/messages";
+    if (!fs.existsSync(mesgdir)) {
+      fs.mkdirSync(mesgdir);
+    } 
+
+    // Create the attachments directory, needed as the default version
+    attachdir = __dirname + "/attachments";
+    if (!fs.existsSync(attachdir)) {
+      fs.mkdirSync(attachdir);
+    } 
+
     const tokenConfig = [
         {
             token: 'USE_STREAMING',
@@ -61,7 +74,7 @@ async function main()
                     description: 'Please specify the directory to save message data',
                     message: 'Cannot find directory!',
                     required: true,
-                    default: '',
+                    default: mesgdir,
                 },
                 {
                     token: 'STREAM_BASENAME',
@@ -88,7 +101,8 @@ async function main()
                     description: "Please specify the directory to save attachment data",
                     message: 'Cannot find directory!',
                     required: true,
-                    default: '',
+                    default: attachdir,
+
                 }
             ]
         },
@@ -102,7 +116,6 @@ async function main()
             default: '1440'
         }
     ];
-
 
     var fullName = process.cwd() + "/processes.json";
     wickrIOConfigure = new WickrIOBotAPI.WickrIOConfigure(tokenConfig, fullName, false, false);
