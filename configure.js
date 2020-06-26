@@ -49,7 +49,7 @@ async function main()
             token: 'USE_STREAMING',
             pattern: 'yes|no',
             type: 'string',
-            description: 'Do you want to use streaming',
+            description: 'Use new file save process [yes/no]',
             message: 'Please enter either yes or no',
             required: true,
             default: 'no',
@@ -61,7 +61,7 @@ async function main()
                     description: 'Please specify the directory to save message data',
                     message: 'Cannot find directory!',
                     required: true,
-                    default: 'N/A',
+                    default: '',
                 },
                 {
                     token: 'STREAM_BASENAME',
@@ -74,12 +74,12 @@ async function main()
                 },
                 {
                     token: 'STREAM_MAXSIZE',
-                    pattern: '^([1-9][0-9]{3,8}|1000000000)$',
+                    pattern: '^([1-9][0-9]{4,9}|10000000000)$',
                     type: 'number',
                     description: "Please enter the maximum size in bytes for each messages file [1GB = 1073741824]",
-                    message: 'Please enter a valid number between 1000 and 1000000000',
+                    message: 'Please enter a valid number between 10000 and 10000000000',
                     required: false,
-                    default: 'N/A',
+                    default: '1073741824',
                 },
                 {
                     token: 'STREAM_ATTACHLOC',
@@ -88,7 +88,7 @@ async function main()
                     description: "Please specify the directory to save attachment data",
                     message: 'Cannot find directory!',
                     required: true,
-                    default: 'N/A',
+                    default: '',
                 }
             ]
         },
@@ -96,7 +96,7 @@ async function main()
             token: 'RUNTIME_DURATION',
             pattern: '^([1-9][0-9]{1,2}|[1-4][0-9]{1,3}|[1-5]000)$',
             type: 'string',
-            description: 'Memory can reach 100% if the bot isn't restarted periodically. Please enter a time in minutes to restart the service [24hrs = 1440]',
+            description: "Memory can reach 100% if the bot isn't restarted periodically. Please enter a time in minutes to restart the service [24hrs = 1440]",
             message: 'Please enter a valid number',
             required: true,
             default: '1440'
