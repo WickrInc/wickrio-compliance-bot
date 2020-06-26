@@ -102,6 +102,7 @@ async function main()
                     message: 'Cannot find directory!',
                     required: true,
                     default: attachdir,
+
                 }
             ]
         },
