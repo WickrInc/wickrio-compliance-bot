@@ -148,18 +148,21 @@ async function main() {
     }
   } else {
     useStreaming = "no";
+  }
+
+  // If not using streaming then start listening for messages
+  if (useStreaming !== "yes") {
+    // turn off streaming
     try {
       var csm = WickrIOAPI.cmdSetStreamingOff();
       console.log(csm);
     } catch (err) {
       console.log(err);
     }
-  }
 
-  // If not using streaming then start listening for messages
-  if (useStreaming !== "yes") {
+    // set the callback function that will receive incoming messages into the bot client
     try {
-      await bot.startListening(listen); //Passes a callback function that will receive incoming messages into the bot client
+      await bot.startListening(listen);
     } catch (err) {
       console.log(err);
       process.exit();
