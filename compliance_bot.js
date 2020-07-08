@@ -140,6 +140,7 @@ async function main() {
         attachloc = __dirname + "attachments";
         if (!fs.existsSync(attachloc)) {
           fs.mkdirSync(attachloc);
+        }
       }
 
       var csm = WickrIOAPI.cmdSetFileStreaming(dest, basename, maxsize, attachloc);
@@ -147,6 +148,12 @@ async function main() {
     }
   } else {
     useStreaming = "no";
+    try {
+      var csm = WickrIOAPI.cmdSetStreamingOff();
+      console.log(csm);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   // If not using streaming then start listening for messages
