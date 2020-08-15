@@ -1,23 +1,18 @@
 {
-  "apps": [
-    {
-      "name": "WickrIO-Compliance-Bot",
-      "args": [],
-      "script": "node compliance_bot.js",
-      "exec_interpreter": "none",
-      "autorestart": true,
-      "watch": [
-        "package.json"
-      ],
-      "ignore_watch": [
-        ".git"
-      ],
-      "env": {
-        "tokens": {
-        }
-      },
-      "out_file": "log.output",
-      "error_file": "err.output"
-    }
-  ]
+	"apps": [
+		{
+			"name": "WickrIO-Compliance-Bot",
+			"args": [],
+			"script": "./build/index.js",
+			"exec_interpreter": "node",
+			"autorestart": true,
+			"watch": ["package.json"],
+			"ignore_watch": [".git"],
+			"env": {
+				"tokens": {}
+			},
+			"out_file": "log.output",
+			"error_file": "err.output"
+		}
+	]
 }
