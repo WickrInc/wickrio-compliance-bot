@@ -1,6 +1,6 @@
 {
   "name": "wickrio-compliance-bot",
-  "version": "5.59.1",
+  "version": "5.62.1",
   "description": "WickrIO Compliance Bot",
   "main": "compliance_bot.js",
   "author": "Paul Cushman",
@@ -11,8 +11,7 @@
     "log4js": "^5.2.1",
     "pm2": "^3.5.1",
     "prompt": "^1.0.0",
-    "wickrio-bot-api": "5.56.x",
-    "wickrio_addon": "5.56.x"
+    "wickrio-bot-api": "5.62.x"
   },
   "scripts": {
     "start": "pm2 start processes.json --update-env",
