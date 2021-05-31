@@ -10,7 +10,7 @@
     "dotenv": "^8.2.0",
     "log4js": "^5.2.1",
     "prompt": "^1.0.0",
-    "wickrio-bot-api": "5.79.x"
+    "wickrio-bot-api": "5.82.x"
   },
   "scripts": {
     "start": "/etc/init.d/mysql start && forever start -m 1 ./forever.json",
