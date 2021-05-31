@@ -4,7 +4,7 @@
   "watch": false,
   "script": "./compliance_bot.js",
   "sourceDir": "",
-  "logFile": "./log.output",
-  "outFile": "./outfile.output",
-  "errFile": "./err.output"
+  "logFile": "",
+  "outFile": "",
+  "errFile": ""
 }
