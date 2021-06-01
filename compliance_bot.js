@@ -36,6 +36,8 @@ async function main() {
   try {
     var client;
 
+    bot.processesJsonToProcessEnv()
+
     var tokens = JSON.parse(process.env.tokens);
     
     if (tokens.WICKRIO_BOT_NAME !== undefined &&
