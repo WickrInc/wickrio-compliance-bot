@@ -68,6 +68,7 @@ async function main() {
     WickrIOAPI.cmdSetControl(type, value);
     WickrIOAPI.cmdSetControl('contactbackup', 'false');
     WickrIOAPI.cmdSetControl('convobackup', 'false');
+    WickrIOAPI.cmdSetControl('attachLifeMinutes', '1');
   } catch (err) {
     console.log(err);
     process.exit();
