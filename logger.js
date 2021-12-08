@@ -24,7 +24,6 @@ process.env.log_tokens = JSON.stringify(
 
 let LOG_LEVEL, LOG_FILE_SIZE, LOG_MAX_FILES
 
-console.log('Hello toren' + process.env.log_tokens)
 if(process.env.log_tokens === 'undefined' && process.env.log_tokens === undefined) {
   processesJsonObject.apps[0].env.log_tokens = {}
   processesJsonObject.apps[0].env.log_tokens.LOG_LEVEL = {}
