@@ -3,6 +3,7 @@ const WickrIOAPI = require('wickrio_addon');
 const WickrIOBotAPI = require('wickrio-bot-api');
 const WickrUser = WickrIOBotAPI.WickrUser;
 const bot = new WickrIOBotAPI.WickrIOBot();
+const logger = require('./logger');
 
 process.title = "complianceBot";
 module.exports = WickrIOAPI;
@@ -12,13 +13,13 @@ async function exitHandler(options, err) {
   try {
     var closed = await bot.close();
     if (err || options.exit) {
-      console.log("Exit reason:", err);
+      logger.info("Exit reason:", err);
       process.exit();
     } else if (options.pid) {
       process.kill(process.pid);
     }
   } catch (err) {
-    console.log(err);
+    logger.error(err);
   }
 }
 
@@ -58,7 +59,7 @@ async function main() {
       });
     }
   } catch (err) {
-    console.log(err);
+    logger.error(err);
     process.exit();
   }
 
@@ -69,7 +70,7 @@ async function main() {
     WickrIOAPI.cmdSetControl('contactbackup', 'false');
     WickrIOAPI.cmdSetControl('convobackup', 'false');
   } catch (err) {
-    console.log(err);
+    logger.error(err);
     process.exit();
   }
 
@@ -88,7 +89,7 @@ async function main() {
 
       WickrIOAPI.cmdSetControl('duration', rtDuration);
     } catch (err) {
-      console.log(err);
+      logger.error(err);
       process.exit();
     }
   }
@@ -146,7 +147,7 @@ async function main() {
       }
 
       var csm = WickrIOAPI.cmdSetFileStreaming(dest, basename, maxsize, attachloc);
-      console.log(csm);
+      logger.info(csm);
     }
   } else {
     useStreaming = "no";
@@ -157,16 +158,16 @@ async function main() {
     // turn off streaming
     try {
       var csm = WickrIOAPI.cmdSetStreamingOff();
-      console.log(csm);
+      logger.info(csm);
     } catch (err) {
-      console.log(err);
+      logger.error(err);
     }
 
     // set the callback function that will receive incoming messages into the bot client
     try {
       await bot.startListening(listen);
     } catch (err) {
-      console.log(err);
+      logger.error(err);
       process.exit();
     }
   }
@@ -176,7 +177,7 @@ function listen(message) {
   try {
     fs.appendFileSync('receivedMessages.log', message + '\n', 'utf8');
   } catch (err) {
-    return console.log(err);
+    return logger.error(err);
   }
 }
 

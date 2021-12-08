@@ -6,11 +6,13 @@
   "author": "Paul Cushman",
   "license": "ISC",
   "dependencies": {
-    "fs": "0.0.2",
     "dotenv": "^8.2.0",
+    "fs": "0.0.2",
     "log4js": "^5.2.1",
     "prompt": "^1.0.0",
-    "wickrio-bot-api": "5.82.x"
+    "wickrio-bot-api": "5.82.x",
+    "winston": "^3.3.3",
+    "winston-daily-rotate-file": "^3.10.0"
   },
   "scripts": {
     "start": "forever start -m 5 ./forever.json",
