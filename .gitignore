@@ -5,7 +5,6 @@ package-lock.json
 *.output
 build/
 last_id.json
-processes.json
 processes_backup.json
 attachments/
 users.txt
