@@ -1,6 +1,6 @@
 {
   "name": "wickrio-compliance-bot",
-  "version": "5.82.2",
+  "version": "5.96.1",
   "description": "WickrIO Compliance Bot",
   "main": "compliance_bot.js",
   "author": "Paul Cushman",
