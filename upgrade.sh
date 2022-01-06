@@ -51,6 +51,10 @@ then
   cp -r attachments $NEW_BOT_LOCATION
 fi
 
+set +e
+cp -rf logs $NEW_BOT_LOCATION
+set -e
+
 #
 # Move the OLD installation to a saved directory
 # Remove a previous one if necessary
