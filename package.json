@@ -1,6 +1,6 @@
 {
   "name": "wickrio-compliance-bot",
-  "version": "5.96.1",
+  "version": "5.96.2",
   "description": "WickrIO Compliance Bot",
   "main": "compliance_bot.js",
   "author": "Paul Cushman",
@@ -10,9 +10,7 @@
     "fs": "0.0.2",
     "log4js": "^5.2.1",
     "prompt": "^1.0.0",
-    "wickrio-bot-api": "5.82.x",
-    "winston": "^3.3.3",
-    "winston-daily-rotate-file": "^3.10.0"
+    "wickrio-bot-api": "5.96.x"
   },
   "scripts": {
     "start": "forever start -m 5 ./forever.json",
