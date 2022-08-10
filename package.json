@@ -10,7 +10,7 @@
     "fs": "0.0.2",
     "log4js": "^5.2.1",
     "prompt": "^1.0.0",
-    "wickrio-bot-api": "5.98.x"
+    "wickrio-bot-api": "5.113.x"
   },
   "scripts": {
     "start": "forever start -m 5 ./forever.json",
