@@ -66,9 +66,9 @@ async function main() {
   try {
     var type='complianceruntime';
     var value='true';
-    WickrIOAPI.cmdSetControl(type, value);
-    WickrIOAPI.cmdSetControl('contactbackup', 'false');
-    WickrIOAPI.cmdSetControl('convobackup', 'false');
+    await WickrIOAPI.cmdSetControl(type, value);
+    await WickrIOAPI.cmdSetControl('contactbackup', 'false');
+    await WickrIOAPI.cmdSetControl('convobackup', 'false');
   } catch (err) {
     logger.error(err);
     process.exit();
@@ -79,7 +79,7 @@ async function main() {
   if (tokens.RUNTIME_DURATION !== undefined) {
     try {
       if (tokens.RUNTIME_DURATION.encrypted) {
-        rtDuration = WickrIOAPI.cmdDecryptString(tokens.RUNTIME_DURATION.value);
+        rtDuration = await WickrIOAPI.cmdDecryptString(tokens.RUNTIME_DURATION.value);
       } else {
         rtDuration = tokens.RUNTIME_DURATION.value;
       }
@@ -87,7 +87,7 @@ async function main() {
       rtDurationSeconds = parseInt(rtDuration, 10) * 60;
       rtDuration = rtDurationSeconds.toString();
 
-      WickrIOAPI.cmdSetControl('duration', rtDuration);
+      await WickrIOAPI.cmdSetControl('duration', rtDuration);
     } catch (err) {
       logger.error(err);
       process.exit();
@@ -101,7 +101,7 @@ async function main() {
   // set the streaming, if is turned on
   if (tokens.USE_STREAMING !== undefined) {
     if (tokens.USE_STREAMING.encrypted) {
-      useStreaming = WickrIOAPI.cmdDecryptString(tokens.USE_STREAMING.value);
+      useStreaming = await WickrIOAPI.cmdDecryptString(tokens.USE_STREAMING.value);
     } else {
       useStreaming = tokens.USE_STREAMING.value;
     }
@@ -110,7 +110,7 @@ async function main() {
 
       if (tokens.STREAM_DESTINATION !== undefined) {
         if (tokens.STREAM_DESTINATION.encrypted) {
-          dest = WickrIOAPI.cmdDecryptString(tokens.STREAM_DESTINATION.value);
+          dest = await WickrIOAPI.cmdDecryptString(tokens.STREAM_DESTINATION.value);
         } else {
           dest = tokens.STREAM_DESTINATION.value;
         }
@@ -122,20 +122,20 @@ async function main() {
       }
 
       if (tokens.STREAM_BASENAME.encrypted) {
-        basename = WickrIOAPI.cmdDecryptString(tokens.STREAM_BASENAME.value);
+        basename = await WickrIOAPI.cmdDecryptString(tokens.STREAM_BASENAME.value);
       } else {
         basename = tokens.STREAM_BASENAME.value;
       }
 
       if (tokens.STREAM_MAXSIZE.encrypted) {
-        maxsize = WickrIOAPI.cmdDecryptString(tokens.STREAM_MAXSIZE.value);
+        maxsize = await WickrIOAPI.cmdDecryptString(tokens.STREAM_MAXSIZE.value);
       } else {
         maxsize = tokens.STREAM_MAXSIZE.value;
       }
 
       if (tokens.STREAM_DESTINATION !== undefined) {
         if (tokens.STREAM_ATTACHLOC.encrypted) {
-          attachloc = WickrIOAPI.cmdDecryptString(tokens.STREAM_ATTACHLOC.value);
+          attachloc = await WickrIOAPI.cmdDecryptString(tokens.STREAM_ATTACHLOC.value);
         } else {
           attachloc = tokens.STREAM_ATTACHLOC.value;
         }
@@ -146,7 +146,7 @@ async function main() {
         }
       }
 
-      var csm = WickrIOAPI.cmdSetFileStreaming(dest, basename, maxsize, attachloc);
+      var csm = await WickrIOAPI.cmdSetFileStreaming(dest, basename, maxsize, attachloc);
       logger.info(csm);
     }
   } else {
@@ -157,7 +157,7 @@ async function main() {
   if (useStreaming !== "yes") {
     // turn off streaming
     try {
-      var csm = WickrIOAPI.cmdSetStreamingOff();
+      var csm = await WickrIOAPI.cmdSetStreamingOff();
       logger.info(csm);
     } catch (err) {
       logger.error(err);
