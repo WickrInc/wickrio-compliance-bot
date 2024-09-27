@@ -1,9 +1,10 @@
 var fs = require('fs');
-const WickrIOAPI = require('wickrio_addon');
 const WickrIOBotAPI = require('wickrio-bot-api');
 const WickrUser = WickrIOBotAPI.WickrUser;
 const bot = new WickrIOBotAPI.WickrIOBot();
 const logger = require('./logger');
+
+const WickrIOAPI = bot.apiService().WickrIOAPI;
 
 process.title = "complianceBot";
 module.exports = WickrIOAPI;
