@@ -3,7 +3,6 @@
     "name": "WickrIO-Compliance-Bot",
     "script": "./compliance_bot.js",
     "instances": 1,
-    "max_memory_restart": "1G",
     "node_args": [],
     "env": {
       "NODE_ENV": "production"
