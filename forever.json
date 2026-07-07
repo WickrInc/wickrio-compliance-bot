@@ -1,7 +1,0 @@
-{
-  "uid": "wickrio-compliance-bot",
-  "append": true,
-  "watch": false,
-  "script": "./compliance_bot.js",
-  "sourceDir": ""
-}

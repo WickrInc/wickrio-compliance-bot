@@ -1,0 +1,12 @@
+{
+  "apps" : [{
+    "name": "WickrIO-Compliance-Bot",
+    "script": "./compliance_bot.js",
+    "instances": 1,
+    "node_args": [],
+    "env": {
+      "NODE_ENV": "production"
+    },
+    "args": []
+  }]
+}
